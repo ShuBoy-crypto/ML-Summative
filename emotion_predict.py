@@ -54,7 +54,7 @@ def cleaning_text(text):
     return text
 
   
-new_text = cleaninh_text(text_pred)
+new_text = cleaning_text(text_pred)
   
 ntokenizer = Tokenizer(num_words=5)
 ntokenizer.fit_on_texts(new_text)
