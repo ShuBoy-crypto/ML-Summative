@@ -11,16 +11,13 @@ from sklearn.preprocessing import LabelEncoder
 
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from tensorflow.keras import layers, callbacks
-from tensorflow.keras import Model, Sequential
 
 from nltk.stem import SnowballStemmer
 from nltk.corpus import stopwords
 import re
 import string
 from PIL import Image
-from smart_open import smart_open
+
 # model = pickle.load(open('final_model.save.pkl', 'rb'))
 
 nltk.download('stopwords')
