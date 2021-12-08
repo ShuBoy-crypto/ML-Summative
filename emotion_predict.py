@@ -81,9 +81,6 @@ def tokenizer(x_train, y_train, newv, max_len_word):
                                 padding='post', )
    
 
-    print(train_padded.shape)
-    print(val_padded.shape)
-    print('Total words: {}'.format(len(word_dict)))
     return train_padded, val_padded, y_train, y_val, word_dict
 
 X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
