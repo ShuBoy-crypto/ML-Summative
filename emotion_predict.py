@@ -91,10 +91,12 @@ def tokenizer(x_train, y_train, newv, max_len_word):
 
 X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
 
+label_back = encoder.classes_
+
 if st.button('Predict Overall Performance'):
 	pred = model.predict(X_val)[4292]
 	pred = np.argmax(pred, axis = 0)
-	st.write(pred)
+	st.write("The predicted emotion is",label_black[pred])
   	
 # 	st.write("The overall predicted score for the above player is", clubs.index(club))
 else:
