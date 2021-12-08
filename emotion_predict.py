@@ -88,7 +88,7 @@ def tokenizer(x_train, y_train, newv, max_len_word):
     print('Total words: {}'.format(len(word_dict)))
     return train_padded, val_padded, y_train, y_val, word_dict
 
-X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, lstt, 100)
+X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
 
 if st.button('Predict Overall Performance'):
 	pred = model.predict(X_val)[4292]
