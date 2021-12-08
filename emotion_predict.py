@@ -18,7 +18,7 @@ import re
 import string
 from PIL import Image
 
-# model = pickle.load(open('final_model.save.pkl', 'rb'))
+model = pickle.load(open('emotion_model', 'rb'))
 
 nltk.download('stopwords')
 
@@ -27,7 +27,7 @@ st.header("Tweet Emotion Prediction")
 st.write("This web app predicts the people's emotions based on their tweets")
 
 text_pred = st.text_input("Please enter tweet in the text below")
-# df = pd.read_csv("mldata.csv" )
+df = pd.read_csv("mldata.csv" )
 
 
 def cleaning_text(text):
