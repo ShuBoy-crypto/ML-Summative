@@ -55,7 +55,7 @@ df['Text'] = df['Text'].apply(lambda x: cleaning_text(x))
 new_text = cleaning_text(text_pred)
 
   
-def tokenizer(x_train, y_train, newv, max_len_word):
+def tokenizer(x_train, y_train, max_len_word):
     # because the data distribution is imbalanced, "stratify" is used
     X_train, X_val, y_train, y_val = train_test_split(x_train, y_train, 
                                                       test_size=.2, shuffle=True, 
@@ -73,7 +73,7 @@ def tokenizer(x_train, y_train, newv, max_len_word):
                                  maxlen=max_len_word,
                                  truncating='post',
                                  padding='post')
-    X_val[len(X_val)] = newv
+#     X_val[len(X_val)] = newv
     val_sequences = tokenizer.texts_to_sequences(X_val)
     val_padded = pad_sequences(val_sequences,
                                 maxlen=max_len_word,
@@ -83,7 +83,7 @@ def tokenizer(x_train, y_train, newv, max_len_word):
 
     return train_padded, val_padded, y_train, y_val, word_dict
 
-X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
+X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, 100)
 
 if st.button('Predict Overall Performance'):
 	pred = model.predict(X_val)[4292]
