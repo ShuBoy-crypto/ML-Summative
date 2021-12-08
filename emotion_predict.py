@@ -54,8 +54,10 @@ def cleaning_text(text):
 df['Text'] = df['Text'].apply(lambda x: cleaning_text(x)) 
 new_text = cleaning_text(text_pred)
 
+encoder = LabelEncoder()
+df['Label'] = encoder.fit_transform(df['Emotion'])
   
-def tokenizer(x_train, y_train, max_len_word):
+def tokenizer(x_train, y_train, newv, max_len_word):
     # because the data distribution is imbalanced, "stratify" is used
     X_train, X_val, y_train, y_val = train_test_split(x_train, y_train, 
                                                       test_size=.2, shuffle=True, 
@@ -73,7 +75,7 @@ def tokenizer(x_train, y_train, max_len_word):
                                  maxlen=max_len_word,
                                  truncating='post',
                                  padding='post')
-#     X_val[len(X_val)] = newv
+    X_val[len(X_val)] = newv
     val_sequences = tokenizer.texts_to_sequences(X_val)
     val_padded = pad_sequences(val_sequences,
                                 maxlen=max_len_word,
@@ -81,9 +83,12 @@ def tokenizer(x_train, y_train, max_len_word):
                                 padding='post', )
    
 
+    print(train_padded.shape)
+    print(val_padded.shape)
+    print('Total words: {}'.format(len(word_dict)))
     return train_padded, val_padded, y_train, y_val, word_dict
 
-X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, 100)
+X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, lstt, 100)
 
 if st.button('Predict Overall Performance'):
 	pred = model.predict(X_val)[4292]
