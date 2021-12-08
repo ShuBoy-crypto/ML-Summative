@@ -86,7 +86,7 @@ text_pred = st.text_input("Please enter tweet in the text below")
 # X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
 
 if st.button('Predict Overall Performance'):
-	st.write(text_pred)) 
+	st.write(text_pred)
   	
 # 	st.write("The overall predicted score for the above player is", clubs.index(club))
 else:
