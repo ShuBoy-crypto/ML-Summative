@@ -30,29 +30,29 @@ text_pred = st.text_input("Please enter tweet in the text below")
 # df = pd.read_csv("mldata.csv" )
 
 
-# def cleaning_text(text):
-#     stop_words = stopwords.words("english")
+def cleaning_text(text):
+    stop_words = stopwords.words("english")
 
-#     # removing urls from tweets
-#     text = re.sub(r'http\S+', " ", text)    
-#     # remove mentions
-#     text = re.sub(r'@\w+',' ',text)         
-#     # removing hastags
-#     text = re.sub(r'#\w+', ' ', text)       
-#     # removing html tags
-#     text = re.sub('r<.*?>',' ', text)       
+    # removing urls from tweets
+    text = re.sub(r'http\S+', " ", text)    
+    # remove mentions
+    text = re.sub(r'@\w+',' ',text)         
+    # removing hastags
+    text = re.sub(r'#\w+', ' ', text)       
+    # removing html tags
+    text = re.sub('r<.*?>',' ', text)       
     
-#     # removing stopwords stopwords 
-#     text = text.split()
-#     text = " ".join([word for word in text if not word in stop_words])
+    # removing stopwords stopwords 
+    text = text.split()
+    text = " ".join([word for word in text if not word in stop_words])
 
-#     for punctuation in string.punctuation:
-#         text = text.replace(punctuation, "")
+    for punctuation in string.punctuation:
+        text = text.replace(punctuation, "")
     
-#     return text
+    return text
 
-# df['Emotion'] = df['Emotion'].apply(lambda x: cleaning_text(x)) 
-# new_text = cleaning_text(text_pred)
+df['Emotion'] = df['Emotion'].apply(lambda x: cleaning_text(x)) 
+new_text = cleaning_text(text_pred)
 
   
 # def tokenizer(x_train, y_train, newv, max_len_word):
@@ -86,7 +86,7 @@ text_pred = st.text_input("Please enter tweet in the text below")
 # X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
 
 if st.button('Predict Overall Performance'):
-	st.write(text_pred)
+	st.write(new_text)
   	
 # 	st.write("The overall predicted score for the above player is", clubs.index(club))
 else:
