@@ -96,7 +96,7 @@ label_back = encoder.classes_
 if st.button('Predict Overall Performance'):
 	pred = model.predict(X_val)[4292]
 	pred = np.argmax(pred, axis = 0)
-	st.write("The predicted emotion is",label_black[pred])
+	st.write("The predicted emotion is" + label_black[pred])
   	
 # 	st.write("The overall predicted score for the above player is", clubs.index(club))
 else:
