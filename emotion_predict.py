@@ -27,66 +27,66 @@ st.header("Tweet Emotion Prediction")
 st.write("This web app predicts the people's emotions based on their tweets")
 
 text_pred = st.text_input("Please enter tweet in the text below")
-df = pd.read_csv("mldata.csv" )
+# df = pd.read_csv("mldata.csv" )
 
 
-def cleaning_text(text):
-    stop_words = stopwords.words("english")
+# def cleaning_text(text):
+#     stop_words = stopwords.words("english")
 
-    # removing urls from tweets
-    text = re.sub(r'http\S+', " ", text)    
-    # remove mentions
-    text = re.sub(r'@\w+',' ',text)         
-    # removing hastags
-    text = re.sub(r'#\w+', ' ', text)       
-    # removing html tags
-    text = re.sub('r<.*?>',' ', text)       
+#     # removing urls from tweets
+#     text = re.sub(r'http\S+', " ", text)    
+#     # remove mentions
+#     text = re.sub(r'@\w+',' ',text)         
+#     # removing hastags
+#     text = re.sub(r'#\w+', ' ', text)       
+#     # removing html tags
+#     text = re.sub('r<.*?>',' ', text)       
     
-    # removing stopwords stopwords 
-    text = text.split()
-    text = " ".join([word for word in text if not word in stop_words])
+#     # removing stopwords stopwords 
+#     text = text.split()
+#     text = " ".join([word for word in text if not word in stop_words])
 
-    for punctuation in string.punctuation:
-        text = text.replace(punctuation, "")
+#     for punctuation in string.punctuation:
+#         text = text.replace(punctuation, "")
     
-    return text
+#     return text
 
-df['Emotion'] = df['Emotion'].apply(lambda x: cleaning_text(x)) 
-new_text = cleaning_text(text_pred)
+# df['Emotion'] = df['Emotion'].apply(lambda x: cleaning_text(x)) 
+# new_text = cleaning_text(text_pred)
 
   
-def tokenizer(x_train, y_train, newv, max_len_word):
-    # because the data distribution is imbalanced, "stratify" is used
-    X_train, X_val, y_train, y_val = train_test_split(x_train, y_train, 
-                                                      test_size=.2, shuffle=True, 
-                                                      stratify=y_train, random_state=0)
+# def tokenizer(x_train, y_train, newv, max_len_word):
+#     # because the data distribution is imbalanced, "stratify" is used
+#     X_train, X_val, y_train, y_val = train_test_split(x_train, y_train, 
+#                                                       test_size=.2, shuffle=True, 
+#                                                       stratify=y_train, random_state=0)
 
-    # Tokenizer
-    tokenizer = Tokenizer(num_words=5000)
-    tokenizer.fit_on_texts(X_train)
-    sequence_dict = tokenizer.word_index
-    word_dict = dict((num, val) for (val, num) in sequence_dict.items())
+#     # Tokenizer
+#     tokenizer = Tokenizer(num_words=5000)
+#     tokenizer.fit_on_texts(X_train)
+#     sequence_dict = tokenizer.word_index
+#     word_dict = dict((num, val) for (val, num) in sequence_dict.items())
 
-    # Sequence data
-    train_sequences = tokenizer.texts_to_sequences(X_train)
-    train_padded = pad_sequences(train_sequences,
-                                 maxlen=max_len_word,
-                                 truncating='post',
-                                 padding='post')
-    X_val[len(X_val)] = newv
-    val_sequences = tokenizer.texts_to_sequences(X_val)
-    val_padded = pad_sequences(val_sequences,
-                                maxlen=max_len_word,
-                                truncating='post',
-                                padding='post', )
+#     # Sequence data
+#     train_sequences = tokenizer.texts_to_sequences(X_train)
+#     train_padded = pad_sequences(train_sequences,
+#                                  maxlen=max_len_word,
+#                                  truncating='post',
+#                                  padding='post')
+#     X_val[len(X_val)] = newv
+#     val_sequences = tokenizer.texts_to_sequences(X_val)
+#     val_padded = pad_sequences(val_sequences,
+#                                 maxlen=max_len_word,
+#                                 truncating='post',
+#                                 padding='post', )
    
 
-    return train_padded, val_padded, y_train, y_val, word_dict
+#     return train_padded, val_padded, y_train, y_val, word_dict
 
-X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
+# X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
 
 if st.button('Predict Overall Performance'):
-	st.write(X_val[len(X_val-1))
+	st.write(text_pred))
   	
 # 	st.write("The overall predicted score for the above player is", clubs.index(club))
 else:
