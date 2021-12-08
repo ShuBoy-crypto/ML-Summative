@@ -51,7 +51,7 @@ def cleaning_text(text):
     
     return text
 
-df['Emotion'] = df['Emotion'].apply(lambda x: cleaning_text(x)) 
+df['Text'] = df['Text'].apply(lambda x: cleaning_text(x)) 
 new_text = cleaning_text(text_pred)
 
   
