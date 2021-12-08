@@ -55,38 +55,40 @@ df['Emotion'] = df['Emotion'].apply(lambda x: cleaning_text(x))
 new_text = cleaning_text(text_pred)
 
   
-# def tokenizer(x_train, y_train, newv, max_len_word):
-#     # because the data distribution is imbalanced, "stratify" is used
-#     X_train, X_val, y_train, y_val = train_test_split(x_train, y_train, 
-#                                                       test_size=.2, shuffle=True, 
-#                                                       stratify=y_train, random_state=0)
+def tokenizer(x_train, y_train, newv, max_len_word):
+    # because the data distribution is imbalanced, "stratify" is used
+    X_train, X_val, y_train, y_val = train_test_split(x_train, y_train, 
+                                                      test_size=.2, shuffle=True, 
+                                                      stratify=y_train, random_state=0)
 
-#     # Tokenizer
-#     tokenizer = Tokenizer(num_words=5000)
-#     tokenizer.fit_on_texts(X_train)
-#     sequence_dict = tokenizer.word_index
-#     word_dict = dict((num, val) for (val, num) in sequence_dict.items())
+    # Tokenizer
+    tokenizer = Tokenizer(num_words=5000)
+    tokenizer.fit_on_texts(X_train)
+    sequence_dict = tokenizer.word_index
+    word_dict = dict((num, val) for (val, num) in sequence_dict.items())
 
-#     # Sequence data
-#     train_sequences = tokenizer.texts_to_sequences(X_train)
-#     train_padded = pad_sequences(train_sequences,
-#                                  maxlen=max_len_word,
-#                                  truncating='post',
-#                                  padding='post')
-#     X_val[len(X_val)] = newv
-#     val_sequences = tokenizer.texts_to_sequences(X_val)
-#     val_padded = pad_sequences(val_sequences,
-#                                 maxlen=max_len_word,
-#                                 truncating='post',
-#                                 padding='post', )
+    # Sequence data
+    train_sequences = tokenizer.texts_to_sequences(X_train)
+    train_padded = pad_sequences(train_sequences,
+                                 maxlen=max_len_word,
+                                 truncating='post',
+                                 padding='post')
+    X_val[len(X_val)] = newv
+    val_sequences = tokenizer.texts_to_sequences(X_val)
+    val_padded = pad_sequences(val_sequences,
+                                maxlen=max_len_word,
+                                truncating='post',
+                                padding='post', )
    
 
-#     return train_padded, val_padded, y_train, y_val, word_dict
+    return train_padded, val_padded, y_train, y_val, word_dict
 
-# X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
+X_train, X_val, y_train, y_val, word_dict = tokenizer(df.Text, df.Label, new_text, 100)
 
 if st.button('Predict Overall Performance'):
-	st.write(new_text)
+	pred = model.predict(X_val)[4292]
+	pred = np.argmax(pred, axis = 0)
+	st.write(pred)
   	
 # 	st.write("The overall predicted score for the above player is", clubs.index(club))
 else:
